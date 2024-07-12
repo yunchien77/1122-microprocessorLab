@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>HELLO WORLD</title>
+    <style>
+        .all {
+            background: #dbe1e7;
+            width: 800px;
+            /*height:800px;*/
+            border: 3px solid #619bc5;
+            margin: 0 auto;
+            padding: 2%;
+            text-align: center;
+            line-height: 24px;
+        }
+
+        .title {
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .all h1 {
+            font-size: 40px;
+            font-weight: 500px;
+
+            /*padding-left:75px;
+        padding-top:50px;
+        font-style:italic;*/
+        }
+
+        .all p {
+            font-size: 20px;
+            font-weight: 200px;
+            opacity: 0.5;
+            float: left;
+        }
+
+        .submit {
+            width: 5em;
+            height: 5ex;
+            background-color: #f9f9f9;
+            border: 2px solid #77c1f2;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #1d45bd;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit:hover {
+            width: 10em;
+            height: 5ex;
+            background-color: #4f76f6;
+            color: white;
+        }
+
+        .input {
+            /*letter-spacing: 3px;*/
+            line-height: 24px;
+        }
+
+        .light img {
+            width: 10%;
+            float: right;
+        }
+
+        .kkk {
+            width: 50px;
+            font-size: 20px;
+        }
+
+        input[type="text"],
+        textarea {
+            background-color: #f9f9f9;
+            border: 2px solid #4f76f6;
+        }
+
+        input[type="text"]:focus {
+            outline: 3px dashed #4f76f6;
+            border-color: #4f76f6;
+        }
+
+        .slide,
+        .open,
+        .DetectShow,
+        .DetectShow2 {
+            display: none;
+            /*transition: height 0.5s ease, opacity 0.5s ease; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="all">
+        <div class="title">
+            <p>
+            <h1 class="titleWord">Illuminate Your Smart Life</h1>
+            </p>
+            <div class="light">
+                <a
+                    href="https://www.canva.com/design/DAGHgkH78cI/huIUXd-kdvT3IkPYCVHvMQ/edit?utm_content=DAGHgkH78cI&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">
+                    <img src="lightbulb.png" /></a>
+            </div>
+        </div>
+
+        <div class="input">
+            <div class="dataShow">
+                <h2>Your data NOW!</h2>
+                your air-conditioner's temp<div id="tempShow" method="post">
+                    000 </div> degree
+                <hr align=center width=30%>
+                your curtain open percentage<div id="openShow" method="post">
+                    000
+                </div> %
+            </div>
+        </div>
+
+        <hr>
+        <form class="input">
+            <div class="functionSelect">
+                <h2>Select what you want to control!</h2>
+                <input type="radio" id="air-con" name="function" value="air" onclick="showOpenClose(); hideSliding();">
+                <label for="air-con">air conditioner</label>
+
+                <input type="radio" id="curtain" name="function" value="cur" onclick="showSliding(); hideOpenClose();">
+                <label for="curtain">curtain</label>
+                <!--<input class="submit" type="submit" name="functionButton" value="submit">-->
+                <hr>
+            </div>
+        </form>
+
+
+        <form class="input" action="/slideControl" method="get" onsubmit="updateHiddenSliderValue();">
+            <div class="slide" id="slideControl">
+                <h2>Sliding your Curtain</h2>
+                <input type="range" id="slider" min="0" max="100" step="1" value="50"
+                    oninput="updateSliderValue(this.value)">
+                <span id="sliderValue">50</span>
+                <input type="hidden" id="hiddenSliderValue" name="slideValue" value="50">
+                <input class="submit" type="submit" name="slideButton" value="submit">
+                <hr>
+            </div>
+        </form>
+
+        <form class="input" action="/openControl" method="get" onsubmit="updateHiddenTemperatureValue();">
+            <div class="open" id="openControl">
+                <h2>Setting temperature</h2>
+                <input type="number" id="temperature" class="kkk" min="5" max="40"
+                    oninput="updateTemperatureValue(this.value)">
+                <input type="hidden" id="hiddenTemperatureValue" name="temperature" value="25">
+                <input class="submit" type="submit" name="openButton" value="submit">
+                <hr>
+            </div>
+        </form>
+
+        <form class="input" action="/index4" method="get" onsubmit="return false;">
+            <div class="Detecting">
+                <h2>detect you!</h2>
+                <input type="radio" id="light" name="detecting" value="light">
+                <label for="light">light</label>
+                <input type="radio" id="temp" name="detecting" value="temperature">
+                <label for="temperature">temperature</label>
+                <input class="submit" type="submit" id="detectButton" name="detectButton" value="Submit">
+                <hr>
+            </div>
+        </form>
+
+        <form class="input" action="/detect1" method="get" onsubmit="return false;">
+            <div class="DetectShow" id="DetectShow">
+                <h2>Your light</h2>
+                <div id="lightres" method="post">
+                    000
+                </div>
+                <br>
+                <input class="submit" type="submit" id="detectlightButton" name="detectlightButton" value="Finish">
+                <hr>
+            </div>
+
+        </form>
+
+        <form class="input" action="/detect2" method="get" onsubmit="return false;">
+            <div class="DetectShow2" id="DetectShow2">
+                <h2>Your temperature</h2>
+                <div id="tempres" method="post">
+                    000
+                </div>
+                <br>
+                <input class="submit" type="submit" id="detecttempButton" name="detecttempButton" value="Finish">
+                <hr>
+            </div>
+
+        </form>
+
+        <form class="input" action="/sending" method="get">
+            <div class="Email">
+                <h2>email you!</h2>
+                Your email: <input type="text" id="userMail" name="mail" class="message" value="">
+                <br>
+                Your text: <input type="text" id="userText" name="message" class="message" value="">
+                <hr align=center width=50%>
+                <input class="submit" type="submit" name="emailButton" value="submit" onclick="clear();">
+            </div>
+        </form>
+
+        <hr>
+
+        <form class="input" action="/ddd" method="get">
+            <div class="reset">
+                <input class="submit" type="submit" id="reset" name="reset" value="Reset">
+            </div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <script>
+        $("#openShow").css("fontSize", 30);
+        GetResultOpen();
+        function GetResultOpen() {
+            $.ajax({
+                type: "get",
+                url: "/index1",
+                success: function (result) {
+                    console.log("Item", result)
+                    $('#openShow').text(result);
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+        $("#tempShow").css("fontSize", 30);
+        GetResultTemp();
+        function GetResultTemp() {
+            $.ajax({
+                type: "get",
+                url: "/index2",
+                success: function (result) {
+                    console.log("Item", result)
+                    $('#tempShow').text(result);
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+        $("#lightres").css("fontSize", 30);
+        setInterval(GetResult1, 500);
+        function GetResult1() {
+            $.ajax({
+                type: "get",
+                url: "/detect1",
+                success: function (result) {
+                    console.log("Item", result)
+                    $('#lightres').text(result);
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+        $("#tempres").css("fontSize", 30);
+
+        setInterval(GetResult2, 1000);
+        function GetResult2() {
+            $.ajax({
+                type: "get",
+                url: "/detect2",
+                success: function (result) {
+                    console.log("Item", result)
+                    $('#tempres').text(result);
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+        function updateHiddenTemperatureValue() {
+            const temperature = document.getElementById('temperature');
+            const hiddenTemperatureValue = document.getElementById('hiddenTemperatureValue');
+            hiddenTemperatureValue.value = temperature.value;
+        }
+
+        function updateHiddenSliderValue() {
+            const slider = document.getElementById('slider');
+            const hiddenSliderValue = document.getElementById('hiddenSliderValue');
+            hiddenSliderValue.value = slider.value;
+        }
+
+        document.getElementById('detectButton').onclick = function () { showDetect() };
+        document.getElementById('detectlightButton').onclick = function () { hideDetect() };
+        document.getElementById('detecttempButton').onclick = function () { hideDetect2() };
+
+        function showDetect() {
+            if (document.getElementById('light').checked) {
+                //alert("light")
+                document.getElementById('DetectShow').style.display = 'block';
+                //alert("light")
+            }
+            else if (document.getElementById('temp').checked) {
+                document.getElementById('DetectShow2').style.display = 'block';
+                //alert("temp")
+            }
+            else {
+                alert("bad");
+            }
+        }
+
+        function hideDetect() {
+            document.getElementById('DetectShow').style.display = 'none';
+        }
+        function hideDetect2() {
+            document.getElementById('DetectShow2').style.display = 'none';
+        }
+
+
+        function clear() {
+            document.getElementById('userMail').value = "";
+            document.getElementById('userText').value = "";
+        }
+
+        function updateSliderValue(value) {
+            document.getElementById('sliderValue').innerText = value;
+        }
+
+        function updateTemperatureValue(value) {
+            document.getElementById('hiddenTemperatureValue').value = value;
+        }
+
+        function showSliding() {
+            document.getElementById('slideControl').style.display = 'block';
+            //document.getElementById('slideControl').style.transition = 'all 1s ease-in 0.1s' ;
+        }
+
+        function hideSliding() {
+            document.getElementById('slideControl').style.display = 'none';
+        }
+
+        function showOpenClose() {
+            document.getElementById('openControl').style.display = 'block';
+        }
+
+        function hideOpenClose() {
+            document.getElementById('openControl').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

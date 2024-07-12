@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<style>
+    .all{
+        background:#e8fcef;
+        width:600px;
+        height:800px;
+        border:10px solid #b3dbb1;
+        margin:0 auto;
+        text-align: center;
+    
+    }
+    .all h1{
+        font-size: 40px;
+        font-weight:500px;
+        padding-left:75px;
+        padding-top:50px;
+        font-style:italic;
+        text-align: left;
+    }
+    .all p{
+        font-size:20px;
+        font-weight:200px;
+        opacity:0.5;
+    }
+</style>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=\, initial-scale=1.0">
+        <title>Nodejs</title>
+    </head>
+    <body>
+        <div class="all">
+            <p>
+                <h1>Nodejs</h1>
+            </p>
+            <hr>
+            <h1> -- Detecting Now -- </h1>
+
+            <form action="/index" method="get">
+                <h2>LED Control Panel</h2>
+                
+                <div id="response" method="post"> hahaha </div>
+                
+                <div>
+                    <input type="radio" id="detect" name="detecting" value="detect">
+                    <label for="ON">detect</label>
+    
+                    <input type="radio" id="noDetect" name="detecting" value="noDetect">
+                    <label for="OFF">noDetect</label>
+                </div>
+                <input type="submit" name="botton3" value="Submit">
+            </form>
+        </div>
+        <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+        <script>
+            $("#response").css("fontSize", 40);
+            
+            setInterval(GetResult, 1000);
+            function GetResult(){
+                $.ajax({
+                    type:"get",
+                    url:"/detecting",
+                    success:function (result){
+                        console.log("Item", result)
+                        $('#response').text(result);
+                    },
+                    error:function(){
+                        alert("error");
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>
+

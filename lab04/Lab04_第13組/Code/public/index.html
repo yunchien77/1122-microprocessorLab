@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<style>
+    .all{
+        background:#e8fcef;
+        width:600px;
+        height:800px;
+        border:10px solid #b3dbb1;
+        margin:0 auto;
+        text-align: center;
+    
+    }
+    .all h1{
+        font-size: 40px;
+        font-weight:500px;
+        padding-left:75px;
+        padding-top:50px;
+        font-style:italic;
+        text-align: left;
+    }
+    .all p{
+        font-size:20px;
+        font-weight:200px;
+        opacity:0.5;
+    }
+</style>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=\, initial-scale=1.0">
+        <title>Nodejs</title>
+    </head>
+    <body>
+        <div class="all">
+            <p>
+                <h1>Nodejs</h1>
+            </p>
+            <hr>
+            <form action="/index" method="get">
+                <h2>LED Control Panel</h2>
+                <div>
+                    <input type="checkbox" id="led1" name="led1" >
+                    <label for="LED1">LED1</label>
+        
+                    <input type="checkbox" id="led2" name="led2" >
+                    <label for="LED2">LED2</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="led3" name="led3">
+                    <label for="LED3">LED3</label>
+    
+                    <input type="checkbox" id="led4" name="led4">
+                    <label for="LED4">LED4</label>
+                </div>
+    
+                <div>
+                    <input type="radio" id="ON" name="POWER" value="on">
+                    <label for="ON">ON</label>
+    
+                    <input type="radio" id="OFF" name="POWER" value="off">
+                    <label for="OFF">OFF</label>
+                </div>
+                <input type="submit" name="botton1" value="Submit">
+                <hr>
+    
+                <h2>LED Switch Frequency</h2>
+                <input type="text" name="time">
+                <br>
+                <input type="submit" name="botton2" value="Mode_shine">
+            </form>
+        </div>
+       
+    </body>
+</html>
